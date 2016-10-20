@@ -32,6 +32,21 @@ TPTTAPI.getAllDpsDist = function(){
 }
 
 /**
+* Return the picture url of "name"
+*/
+TPTTAPI.getPictureAdressOf = function(name){
+	// TODO ! 
+}
+
+/**
+* Return the description of "name"
+*/
+TPTTAPI.getDescriptionOf = function(name){
+	// TODO ! 
+	// Look if the guy is in the guild or is an other member
+}
+
+/**
 * Set the roster
 */
 TPTTAPI.setRoster = function(roster){
