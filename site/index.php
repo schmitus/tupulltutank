@@ -119,6 +119,8 @@ foreach ($json->{'members'} as $key) {
 		<link rel="shortcut icon" href="../favicon.ico">
 		<link rel="stylesheet" type="text/css" href="css/demo.css" />
 		<link rel="stylesheet" type="text/css" href="css/component.css" />
+
+		<script src="js/TPTTAPI.js"></script>
 		<!--[if IE]>
   		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -129,8 +131,6 @@ foreach ($json->{'members'} as $key) {
 	<body>
 		<div class="container">
 			<header class="clearfix">
-
-				<script src="js/TPTTAPI.js"></script>
 				<span>Ner'zhul</span>
 				<h1>Tu pull tu tank</h1>
 			</header>
