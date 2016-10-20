@@ -2,7 +2,6 @@ var TPTTAPI = {};
 var isServerOnline = false;
 var isDebug = true;
 var apikey = "bqerewzpvtvbure8npcx7txu4xc73jkk"
-"https://eu.api.battle.net/wow/guild/Ner'zhul/tu%20pull%20tu%20tank?fields=members&locale=fr_FR&apikey=bqerewzpvtvbure8npcx7txu4xc73jkk"
 
 /**
 * Return all Tanks in an array []
