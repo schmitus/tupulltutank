@@ -1,0 +1,26 @@
+{
+	"tanks":[
+		{
+			"name":"Zararia",
+			"server":"nerzhul"
+		},
+		{
+			"name":"Liëd",
+			"server":"nerzhul"
+		}
+
+	],
+
+	"heals":[
+
+	],
+
+	"dpsCac":[
+
+	],
+
+	"dpsDist":[
+
+	]
+
+}

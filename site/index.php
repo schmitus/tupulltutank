@@ -129,6 +129,8 @@ foreach ($json->{'members'} as $key) {
 	<body>
 		<div class="container">
 			<header class="clearfix">
+
+				<script src="js/TPTTAPI.js"></script>
 				<span>Ner'zhul</span>
 				<h1>Tu pull tu tank</h1>
 			</header>
