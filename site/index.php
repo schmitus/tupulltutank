@@ -148,7 +148,7 @@ foreach ($json->{'members'} as $key) {
 						<form action="../personnages/index.php" id="zararia"method="post">
 							<a href="javascript:{}" onclick="document.getElementById('zararia').submit(); return false;">
 							<div class="mediabox">
-								<img src="hhhttp://render-api-eu.worldofwarcraft.com/static-render/eu/nerzhul/111/106550639-profilemain.jpg" alt="img01" />
+								<img src="hhhttp://render-api-eu.worldofwarcraft.com/static-render/eu/nerzhul/111/106550639-avatar.jpg" alt="img01" />
 								<h3><?php echo $zarariaName; ?></h3>
 								<p><?php echo $zarariaClassDesc; ?></p>
 							</div>
@@ -157,7 +157,7 @@ foreach ($json->{'members'} as $key) {
 						</form>
 						<!-- Lied -->
 						<div class="mediabox">
-							<img src="hhhttp://render-api-eu.worldofwarcraft.com/static-render/eu/nerzhul/119/106321783-profilemain.jpg" alt="img02" />
+							<img src="hhhttp://render-api-eu.worldofwarcraft.com/static-render/eu/nerzhul/189/107099069-avatar.jpg" alt="img02" />
 							<h3><?php echo $liedName; ?></h3>
 							<p><?php echo $liedClassDesc; ?></p>
 						</div>
