@@ -4,7 +4,7 @@
 
 //- Faire différents appels à l'API pour les personnages n'étant pas dans la guilde
 
-//- Faire une page différente pour chaque personnages en utilisant le template dans le dossier personnages
+// customiser la page /personnages/index.php pour chaque classe
 
 //- Personaliser le CSS
 
