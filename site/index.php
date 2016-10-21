@@ -85,6 +85,7 @@ foreach ($json->{'members'} as $key) {
 		$liloulilolClassDesc = $key->{'character'}->{'spec'}->{'description'};
 		break;
 		//TODO : ELNADRIN
+		// maxipanda: VRAIMENT??? UN TODO POUR ELNA ?
 		// case 'Elnadrin' :
 		// $elnadrinName = $key->{'character'}->{'name'};
 		// $elnadrinThumbnail = $key->{'character'}->{'thumbnail'};

@@ -8,18 +8,41 @@
 			"name":"Liëd",
 			"server":"nerzhul"
 		}
+	],
+
+	"heals":[		
+		{
+			"name":"Druidodu",
+			"server":"nerzhul"
+		}
 
 	],
 
-	"heals":[
+	"dpsCac":[	
+		{
+			"name":"Soupline",
+			"server":"nerzhul"
+		},	
+		{
+			"name":"Guiz",
+			"server":"nerzhul"
+		}
 
 	],
 
-	"dpsCac":[
-
-	],
-
-	"dpsDist":[
+	"dpsDist":[	
+		{
+			"name":"Capshow",
+			"server":"nerzhul"
+		},	
+		{
+			"name":"Eaax",
+			"server":"nerzhul"
+		},	
+		{
+			"name":"Liloulilol",
+			"server":"nerzhul"
+		}
 
 	]
 

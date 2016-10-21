@@ -7,28 +7,29 @@ var apikey = "bqerewzpvtvbure8npcx7txu4xc73jkk"
 * Return all Tanks in an array []
 */
 TPTTAPI.getAllTanks = function(){
- return this.roster.tanks;
+
+	return this.roster.tanks;
 }
 
 /**
 * Return all Healers in an array []
 */
 TPTTAPI.getAllHeals = function(){
- return this.roster.heals;
+	return this.roster.heals;
 }
 
 /**
 * Return all CAC DPS in an array []
 */
 TPTTAPI.getAllDpsCac = function(){
- return this.roster.dpsCac;
+	return this.roster.dpsCac;
 }
 
 /**
 * Return all distance DPS in an array []
 */
 TPTTAPI.getAllDpsDist = function(){
- return this.roster.dpsDist;
+	return this.roster.dpsDist;
 }
 
 /**
@@ -67,6 +68,7 @@ TPTTAPI.setRoster = function(roster){
 	if(this.guildInfo !== null){
 		console.log("TPTTAPI Initialized");
 		this.isInitialised = true;
+		this.completeRosterInfo();
 		this.callbackOnInit();
 	}
 }
@@ -82,7 +84,27 @@ TPTTAPI.setGuildInfo = function(guildInfo){
 	if(this.roster !== null){
 		console.log("TPTTAPI Initialized");
 		this.isInitialised = true;
+		this.completeRosterInfo();
 		this.callbackOnInit();
+	}
+}
+
+/**
+* Intern function, should not be used by users
+*/
+TPTTAPI.completeRosterInfo = function(){
+	for(var spe in this.roster){
+		for(var i in this.roster[spe]){
+			var charInfo = TPTTAPI.getCharacterInfo(this.roster[spe][i].name);
+			if(charInfo !== null){
+				this.roster[spe][i].description = charInfo.spec.description;
+				this.roster[spe][i].specName = charInfo.spec.name;
+				this.roster[spe][i].avatar = TPTTAPI.getPictureAdressOf(this.roster[spe][i].name);
+			}
+			else{
+				console.error("TPTTAPI No information found for " +this.roster[spe][i].name)
+			}
+		}
 	}
 }
 
@@ -104,7 +126,7 @@ TPTTAPI.getCharacterInfo = function(name){
 /**
 * Update the informations about roster, guild, and other members
 */
-TPTTAPI.updateInfos = function(roster){
+TPTTAPI.updateInfos = function(){
 	var rosterReq = new XMLHttpRequest();
 	rosterReq.onreadystatechange = function() {
 	if (this.readyState == 4 && this.status == 200) {
@@ -147,3 +169,9 @@ TPTTAPI.initialisation = function(callback){
 }
 
 TPTTAPI.initialisation();
+
+
+function mainBuild(callback){
+
+
+}
