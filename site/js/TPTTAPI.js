@@ -35,15 +35,25 @@ TPTTAPI.getAllDpsDist = function(){
 * Return the picture url of "name"
 */
 TPTTAPI.getPictureAdressOf = function(name){
-	// TODO ! 
+	var charInfo = TPTTAPI.getCharacterInfo(name);
+	var baseURL = "http://render-api-eu.worldofwarcraft.com/static-render/eu/";
+	if(charInfo === null){
+		console.error("TPTTAPI : getPictureAdressOf charInfo not found");
+		return null;
+	}
+	return baseURL+charInfo.thumbnail;
 }
 
 /**
-* Return the description of "name"
+* Return the description of the character
 */
 TPTTAPI.getDescriptionOf = function(name){
-	// TODO ! 
-	// Look if the guy is in the guild or is an other member
+	var charInfo = TPTTAPI.getCharacterInfo(name);
+	if(charInfo === null){
+		console.error("TPTTAPI : getDescriptionOf charInfo not found");
+		return null;
+	}
+	return charInfo.spec.description;
 }
 
 /**
@@ -54,23 +64,47 @@ TPTTAPI.setRoster = function(roster){
 	if(isDebug){
 		console.log("DEBUG setRoster: Roster defined : ");
 	}
+	if(this.guildInfo !== null){
+		console.log("TPTTAPI Initialized");
+		this.isInitialised = true;
+		this.callbackOnInit();
+	}
 }
 
 /**
 * Set the guild infos
 */
-TPTTAPI.setGuildList = function(guildInfo){
-	this.guildList = guildInfo;
+TPTTAPI.setGuildInfo = function(guildInfo){
+	this.guildInfo = guildInfo;
 	if(isDebug){
-		console.log("DEBUG setGuildList: guildList defined : ");
+		console.log("DEBUG setGuildInfo: guildInfo defined : ");
+	}
+	if(this.roster !== null){
+		console.log("TPTTAPI Initialized");
+		this.isInitialised = true;
+		this.callbackOnInit();
 	}
 }
+
+/**
+* Send back infos of the character
+*/
+TPTTAPI.getCharacterInfo = function(name){
+	for(var i in this.guildInfo.members){
+		if(name === this.guildInfo.members[i].character.name){
+			return this.guildInfo.members[i].character;
+		}
+	}
+	// NOT FOUND IN THE GUILD 
+	// Get data of this char ... 
+	return null;
+}
+
 
 /**
 * Update the informations about roster, guild, and other members
 */
 TPTTAPI.updateInfos = function(roster){
-
 	var rosterReq = new XMLHttpRequest();
 	rosterReq.onreadystatechange = function() {
 	if (this.readyState == 4 && this.status == 200) {
@@ -83,7 +117,7 @@ TPTTAPI.updateInfos = function(roster){
 	var guildReq = new XMLHttpRequest();
 	guildReq.onreadystatechange = function() {
 	if (this.readyState == 4 && this.status == 200) {
-			TPTTAPI.setGuildList(JSON.parse(this.responseText));
+			TPTTAPI.setGuildInfo(JSON.parse(this.responseText));
 		}
 	};
 	guildReq.open("GET", "https://eu.api.battle.net/wow/guild/Ner'zhul/tu%20pull%20tu%20tank?fields=members&locale=fr_FR&apikey="+apikey, true);
@@ -93,10 +127,12 @@ TPTTAPI.updateInfos = function(roster){
 /**
 * Initialisation is needed before using the API
 */
-TPTTAPI.initialisation = function(){
+TPTTAPI.initialisation = function(callback){
+	this.callbackOnInit = callback;
+	this.isInitialised = false;
 	this.roster = null;
 	this.host = null;
-	this.guildList = null;
+	this.guildInfo = null;
 	this.othersList = null;
 
 	// Get the host right ( localhost or online )
@@ -110,3 +146,4 @@ TPTTAPI.initialisation = function(){
 	TPTTAPI.updateInfos(); // Fetch all data
 }
 
+TPTTAPI.initialisation();
