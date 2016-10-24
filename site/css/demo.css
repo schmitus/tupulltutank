@@ -21,17 +21,18 @@ body, html { font-size: 100%; padding: 0; margin: 0;}
 
 body {
     font-family: 'Lato', Calibri, Arial, sans-serif;
-    color: #47a3da;
+    color: #00FF00;
+    background-image: url(http://www.hdwallpaper.nu/wp-content/uploads/2016/02/World_Warcraft_Legion_wallpaper_5.png);
 }
 
 a {
-	color: #ccc;
+	color: #fff;
 	text-decoration: none;
 	outline: none;
 }
 
 a:hover {
-	color: #000;
+	color: #00ff00;
 }
 
 .container > header {
@@ -83,7 +84,7 @@ a:hover {
 	margin-left: 4px;
 	position: absolute;
 	color: #fff;
-	background: #47a3da;
+	background: #00FF00;
 }
 
 .container > header nav {
@@ -100,7 +101,7 @@ a:hover {
 	background: #fff;
 	border-radius: 50%;
 	margin: 0 0.1em;
-	border: 4px solid #47a3da;
+	border: 4px solid #00FF00;
 }
 
 .container > header nav a > span {
@@ -109,7 +110,7 @@ a:hover {
 
 .container > header nav a:hover:before {
 	content: attr(data-info);
-	color: #47a3da;
+	color: #00FF00;
 	position: absolute;
 	width: 600%;
 	top: 120%;
@@ -119,7 +120,7 @@ a:hover {
 }
 
 .container > header nav a:hover {
-	background: #47a3da;
+	background: #00FF00;
 }
 
 .bp-icon:after {
@@ -130,7 +131,7 @@ a:hover {
 	font-variant: normal;
 	text-transform: none;
 	text-align: center;
-	color: #47a3da;
+	color: #00FF00;
 	-webkit-font-smoothing: antialiased;
 }
 
