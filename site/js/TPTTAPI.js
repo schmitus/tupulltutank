@@ -65,12 +65,43 @@ TPTTAPI.setRoster = function(roster){
 	if(isDebug){
 		console.log("DEBUG setRoster: Roster defined : ");
 	}
-	if(this.guildInfo !== null){
+	this.ilvlList = [];
+	for(var spe in this.roster){
+			for(var i in this.roster[spe]){
+				var name = this.roster[spe][i].name;
+				var server = this.roster[spe][i].server
+				TPTTAPI.rosterArray.push(name);
+				var ilvlreq = new XMLHttpRequest();
+				ilvlreq.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+						var res = JSON.parse(this.responseText);
+						TPTTAPI.ilvlList.push({ "name": res.name,"ilvl":res.items.averageItemLevelEquipped});
+						TPTTAPI.notify();
+					}
+				};
+				ilvlreq.open("GET", "https://eu.api.battle.net/wow/character/"+server+"/"+name+"?fields=items&locale=fr_FR&apikey="+apikey, true);
+				ilvlreq.send();
+	
+	
+			}
+		}
+}
+
+
+/**
+* Internal usage only : notify when data arrive
+*/
+TPTTAPI.notify = function(){
+	
+	if(this.rosterArray.length === this.ilvlList.length){
 		console.log("TPTTAPI Initialized");
 		this.isInitialised = true;
 		this.completeRosterInfo();
+		this.ilvlList = this.ilvlList.sort(TPTTAPI.compareilvl);
+
 		this.callbackOnInit();
 	}
+
 }
 
 /**
@@ -82,10 +113,7 @@ TPTTAPI.setGuildInfo = function(guildInfo){
 		console.log("DEBUG setGuildInfo: guildInfo defined : ");
 	}
 	if(this.roster !== null){
-		console.log("TPTTAPI Initialized");
-		this.isInitialised = true;
-		this.completeRosterInfo();
-		this.callbackOnInit();
+		TPTTAPI.notify();
 	}
 }
 
@@ -97,6 +125,7 @@ TPTTAPI.completeRosterInfo = function(){
 		for(var i in this.roster[spe]){
 			var charInfo = TPTTAPI.getCharacterInfo(this.roster[spe][i].name);
 			if(charInfo !== null){
+				this.roster[spe][i].ilvl = this.getCharacterilvl(this.roster[spe][i].name);
 				this.roster[spe][i].description = charInfo.spec.description;
 				this.roster[spe][i].specName = charInfo.spec.name;
 				this.roster[spe][i].avatar = TPTTAPI.getPictureAdressOf(this.roster[spe][i].name);
@@ -107,6 +136,19 @@ TPTTAPI.completeRosterInfo = function(){
 		}
 	}
 }
+
+
+/**
+* Send back the ilvl of the character
+*/
+TPTTAPI.getCharacterilvl = function(name){
+	for(var i in this.ilvlList){
+		if(this.ilvlList[i].name === name)
+			return this.ilvlList[i].ilvl
+	}
+	console.error("TPTTAPI : getCharacterilvl has not found " +name + " ilvl");
+}
+
 
 /**
 * Send back infos of the character
@@ -122,6 +164,24 @@ TPTTAPI.getCharacterInfo = function(name){
 	return null;
 }
 
+/**
+* Send back infos of the character
+*/
+TPTTAPI.compareilvl = function(a, b) {
+  if (a.ilvl > b.ilvl)
+     return -1;
+  if (a.ilvl < b.ilvl)
+     return 1;
+  // a doit être égal à b
+  return 0;
+}
+
+/**
+* Send back the ilvl sorted list
+*/
+TPTTAPI.getiLvlList = function() {
+ return this.ilvlList;
+}
 
 /**
 * Update the informations about roster, guild, and other members
@@ -144,6 +204,8 @@ TPTTAPI.updateInfos = function(){
 	};
 	guildReq.open("GET", "https://eu.api.battle.net/wow/guild/Ner'zhul/tu%20pull%20tu%20tank?fields=members&locale=fr_FR&apikey="+apikey, true);
 	guildReq.send();
+
+	
 }
 
 /**
@@ -153,9 +215,11 @@ TPTTAPI.initialisation = function(callback){
 	this.callbackOnInit = callback;
 	this.isInitialised = false;
 	this.roster = null;
+	this.rosterArray = [];
 	this.host = null;
 	this.guildInfo = null;
 	this.othersList = null;
+	this.ilvlList = [];
 
 	// Get the host right ( localhost or online )
 	if (isServerOnline === true){
@@ -168,10 +232,4 @@ TPTTAPI.initialisation = function(callback){
 	TPTTAPI.updateInfos(); // Fetch all data
 }
 
-TPTTAPI.initialisation();
-
-
-function mainBuild(callback){
-
-
-}
+TPTTAPI.initialisation(); // TO REMOVE WHEN SCHMITOS USE IT 
