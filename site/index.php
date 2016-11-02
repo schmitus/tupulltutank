@@ -148,7 +148,7 @@ foreach ($json->{'members'} as $key) {
 				<div class="content">
 					<section id="section-1">
 						<!-- Zararia -->
-						<form action="../personnages/index.php" id="zararia"method="post">
+						<!-- <form action="../personnages/index.php" id="zararia"method="post">
 							<a href="javascript:{}" onclick="document.getElementById('zararia').submit(); return false;">
 							<div class="mediabox">
 								<img src="http://render-api-eu.worldofwarcraft.com/static-render/eu/nerzhul/111/106550639-profilemain.jpg" alt="img01" />
@@ -157,9 +157,9 @@ foreach ($json->{'members'} as $key) {
 							</div>
 							<input type="hidden" name="name" value="<?php echo $zarariaName; ?>">
 							</a>
-						</form>
+						</form> -->
 						<!-- Lied -->
-						<div class="mediabox">
+					<!-- 	<div class="mediabox">
 							<img src="http://render-api-eu.worldofwarcraft.com/static-render/eu/nerzhul/189/107099069-profilemain.jpg" alt="img02" />
 							<h3><?php echo $liedName; ?></h3>
 							<p><?php echo $liedClassDesc; ?></p>
@@ -169,7 +169,7 @@ foreach ($json->{'members'} as $key) {
 							<h3><?php echo $liedName; ?></h3>
 							<p><?php echo $liedClassDesc; ?></p>
 						</div>
-
+ -->
 						<!--
 						// TODO : MELNAS
 						<div class="mediabox">
@@ -180,72 +180,37 @@ foreach ($json->{'members'} as $key) {
 						-->
 					</section>
 					<section id="section-2">
-						<div class="mediabox">
+				<!-- 		<div class="mediabox">
 							<img src="img/04.png" alt="img04" />
 							<h3>Asparagus Cucumber Cake</h3>
 							<p>Chickweed okra pea winter purslane coriander yarrow sweet pepper radish garlic brussels sprout groundnut summer purslane earthnut pea tomato spring onion azuki bean gourd. </p>
-						</div>
-						<div class="mediabox">
-							<img src="img/05.png" alt="img05" />
-							<h3>Magis Kohlrabi Gourd</h3>
-							<p>Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard.</p>
-						</div>
-						<div class="mediabox">
-							<img src="img/06.png" alt="img06" />
-							<h3>Ricebean Rutabaga</h3>
-							<p>Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. </p>
-						</div>
+						</div> -->
+					
 					</section>
 					<section id="section-3">
-						<div class="mediabox">
+						<!-- <div class="mediabox">
 							<img src="img/02.png" alt="img02" />
 							<h3>Noodle Curry</h3>
 							<p>Lotus root water spinach fennel kombu maize bamboo shoot green bean swiss chard seakale pumpkin onion chickpea gram corn pea.Sushi gumbo beet greens corn soko endive gumbo gourd.</p>
-						</div>
-						<div class="mediabox">
-							<img src="img/06.png" alt="img06" />
-							<h3>Leek Wasabi</h3>
-							<p>Sushi gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato.</p>
-						</div>
-						<div class="mediabox">
-							<img src="img/01.png" alt="img01" />
-							<h3>Green Tofu Wrap</h3>
-							<p>Pea horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut wasabi tofu broccoli mixture soup.</p>
-						</div>
+						</div> -->
 					</section>
 					<section id="section-4">
-						<div class="mediabox">
+					<!-- 	<div class="mediabox">
 							<img src="img/03.png" alt="img03" />
 							<h3>Tomato Cucumber Curd</h3>
 							<p>Chickweed okra pea winter purslane coriander yarrow sweet pepper radish garlic brussels sprout groundnut summer purslane earthnut pea tomato spring onion azuki bean gourd. </p>
-						</div>
-						<div class="mediabox">
-							<img src="img/01.png" alt="img01" />
-							<h3>Mushroom Green</h3>
-							<p>Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard.</p>
-						</div>
-						<div class="mediabox">
-							<img src="img/04.png" alt="img04" />
-							<h3>Swiss Celery Chard</h3>
-							<p>Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. </p>
-						</div>
+						</div> -->
+						
 					</section>
 					<section id="section-5">
-						<div class="mediabox">
+					<div class="mediabox">
+							<h3>TODO</h3>
+						</div>
+						<!-- <div class="mediabox">
 							<img src="img/02.png" alt="img02" />
 							<h3>Radish Tomato</h3>
 							<p>Catsear cauliflower garbanzo yarrow salsify chicory garlic bell pepper napa cabbage lettuce tomato kale arugula melon sierra leone bologi rutabaga tigernut.</p>
-						</div>
-						<div class="mediabox">
-							<img src="img/06.png" alt="img06" />
-							<h3>Fennel Wasabi</h3>
-							<p>Sea lettuce gumbo grape kale kombu cauliflower salsify kohlrabi okra sea lettuce broccoli celery lotus root carrot winter purslane turnip greens garlic.</p>
-						</div>
-						<div class="mediabox">
-							<img src="img/01.png" alt="img01" />
-							<h3>Red Tofu Wrap</h3>
-							<p>Green horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut wasabi tofu broccoli mixture soup.</p>
-						</div>
+						</div> -->
 					</section>
 				</div><!-- /content -->
 			</div><!-- /tabs -->
@@ -254,5 +219,6 @@ foreach ($json->{'members'} as $key) {
 		<script>
 			new CBPFWTabs( document.getElementById( 'tabs' ) );
 		</script>
+		<script src="js/pageloader.js"></script>
 	</body>
 </html>
