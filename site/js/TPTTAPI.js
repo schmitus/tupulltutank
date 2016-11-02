@@ -67,10 +67,14 @@ TPTTAPI.setRoster = function(roster){
 	}
 	this.ilvlList = [];
 	for(var spe in this.roster){
+		for(var i in this.roster[spe]){
+			TPTTAPI.rosterArray.push(name);
+		}
+	}
+	for(var spe in this.roster){
 			for(var i in this.roster[spe]){
 				var name = this.roster[spe][i].name;
 				var server = this.roster[spe][i].server
-				TPTTAPI.rosterArray.push(name);
 				var ilvlreq = new XMLHttpRequest();
 				ilvlreq.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
@@ -92,8 +96,9 @@ TPTTAPI.setRoster = function(roster){
 * Internal usage only : notify when data arrive
 */
 TPTTAPI.notify = function(){
+	console.log("trynotify " + this.rosterArray.length + " / " + this.ilvlList.length  );
 	
-	if(this.rosterArray.length === this.ilvlList.length){
+	if(this.rosterArray.length === this.ilvlList.length && this.guildInfo !== null){
 		console.log("TPTTAPI Initialized");
 		this.isInitialised = true;
 		this.completeRosterInfo();
@@ -112,9 +117,8 @@ TPTTAPI.setGuildInfo = function(guildInfo){
 	if(isDebug){
 		console.log("DEBUG setGuildInfo: guildInfo defined : ");
 	}
-	if(this.roster !== null){
-		TPTTAPI.notify();
-	}
+	TPTTAPI.notify();
+	
 }
 
 /**
@@ -187,14 +191,15 @@ TPTTAPI.getiLvlList = function() {
 * Update the informations about roster, guild, and other members
 */
 TPTTAPI.updateInfos = function(){
-	var rosterReq = new XMLHttpRequest();
-	rosterReq.onreadystatechange = function() {
-	if (this.readyState == 4 && this.status == 200) {
-			TPTTAPI.setRoster(JSON.parse(this.responseText));
-		}
-	};
-	rosterReq.open("GET", this.host+"roster.json", true);
-	rosterReq.send();
+	// var rosterReq = new XMLHttpRequest();
+	// rosterReq.onreadystatechange = function() {
+	// if (this.readyState == 4 && this.status == 200) {
+	// 		TPTTAPI.setRoster(JSON.parse(this.responseText));
+	// 	}
+	// };
+	// rosterReq.open("GET", this.host+"roster.json", true);
+	// rosterReq.send();
+	this.setRoster(roster);
 
 	var guildReq = new XMLHttpRequest();
 	guildReq.onreadystatechange = function() {
@@ -226,10 +231,10 @@ TPTTAPI.initialisation = function(callback){
 		this.host = "TODO"; // TODO En fonction de l'hebergement du serveur
 	}
 	else{
-		this.host = "http://localhost/tupulltutank/site/"
+		this.host = "http://tupulltutank.tk/site/"
 	}
 
 	TPTTAPI.updateInfos(); // Fetch all data
 }
 
-TPTTAPI.initialisation(); // TO REMOVE WHEN SCHMITOS USE IT 
+//TPTTAPI.initialisation(); // TO REMOVE WHEN SCHMITOS USE IT 

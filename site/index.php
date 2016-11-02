@@ -121,6 +121,8 @@ foreach ($json->{'members'} as $key) {
 		<link rel="stylesheet" type="text/css" href="css/demo.css" />
 		<link rel="stylesheet" type="text/css" href="css/component.css" />
 
+		<script src="js/jquerymin.js"></script>
+		<script src="js/roster.js"></script>
 		<script src="js/TPTTAPI.js"></script>
 		<!--[if IE]>
   		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
