@@ -17,6 +17,11 @@ var roster =
 				"name":"Marïnea",
 				"server":"nerzhul"
 			},
+			{
+				"role":"tank",
+				"name":"Melnas",
+				"server":"Conseil des ombres"
+			},
 
 
 
