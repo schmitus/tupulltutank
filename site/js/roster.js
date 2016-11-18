@@ -30,7 +30,7 @@ var roster =
 			{
 				"role":"heal",
 				"name":"Yolia",
-				"server":"nerzhul"
+				"server":"Garona"
 			},
 
 	//DPS CAC
