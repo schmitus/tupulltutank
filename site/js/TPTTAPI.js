@@ -2,6 +2,11 @@ var TPTTAPI = {};
 var isServerOnline = false;
 var isDebug = true;
 var apikey = "bqerewzpvtvbure8npcx7txu4xc73jkk";
+var lastResetTime = 1479265200000;
+var currentTime = new Date();
+while(lastResetTime+604800000 < currentTime.getTime()){
+	lastResetTime += 604800000;
+}
 
 /**
 * Return all Tanks in an array []
@@ -115,6 +120,18 @@ TPTTAPI.getProfessionsOf = function(name){
 /**
 * Return the items section of the character
 */
+TPTTAPI.getRaidProgressOf = function(name){
+	var charInfo = TPTTAPI.getCharacterInfo(name);
+	if(charInfo === null){
+		console.error("TPTTAPI : getItemsOf charInfo not found");
+		return null;
+	}
+	return charInfo.raidProgress;
+}
+
+/**
+* Return the items section of the character
+*/
 TPTTAPI.getItemsOf = function(name){
 	var charInfo = TPTTAPI.getCharacterInfo(name);
 	if(charInfo === null){
@@ -189,11 +206,13 @@ TPTTAPI.setGuildInfo = function(guildInfo){
 TPTTAPI.completeRosterInfo = function(){
 	for(var i in this.roster){
 		var charInfo = TPTTAPI.getCharacterInfo(this.roster[i].name);
+		var raidProgress = TPTTAPI.computeProgress(charInfo.progression.raids);
 		if(charInfo !== null){
 			this.roster[i].ilvl = this.getCharacterilvl(this.roster[i].name);
 			this.roster[i].description = charInfo.talents[0].spec.description;
 			this.roster[i].specName = charInfo.talents[0].spec.name;
 			this.roster[i].avatar = TPTTAPI.getPictureAdressOf(this.roster[i].name);
+			this.roster[i].raidProgress = raidProgress;
 		}
 		else{
 			console.error("TPTTAPI No information found for " +this.roster[i].name)
@@ -211,6 +230,67 @@ TPTTAPI.getCharacterilvl = function(name){
 			return this.ilvlList[i].ilvl
 	}
 	console.error("TPTTAPI : getCharacterilvl has not found " +name + " ilvl");
+}
+
+/**
+* Compute and return the progress of the char this week.
+*/
+TPTTAPI.computeProgress = function(data){
+	var progress = [{
+		"name":data[35].name,
+		"NMweekprogress":0,
+		"HMweekprogress":0,
+		"MMweekprogress":0,
+		"NMprogress":0,
+		"HMprogress":0,
+		"MMprogress":0,
+		"total":0
+	},
+	{
+		"name":data[36].name,
+		"NMweekprogress":0,
+		"HMweekprogress":0,
+		"MMweekprogress":0,
+		"NMprogress":0,
+		"HMprogress":0,
+		"MMprogress":0,
+		"total":0
+	},
+	{
+		"name":data[37].name,
+		"NMweekprogress":0,
+		"HMweekprogress":0,
+		"MMweekprogress":0,
+		"NMprogress":0,
+		"HMprogress":0,
+		"MMprogress":0,
+		"total":0
+	}
+	];
+	var raids = [data[35],data[36],data[37]];
+	for(var j in raids){
+		for(var i in raids[j].bosses){
+			var boss = raids[j].bosses[i];
+			if(boss.normalKills !== 0){
+				progress[j].NMprogress++;
+				if(boss.normalTimestamp > lastResetTime)
+					progress[j].NMweekprogress++;
+			}
+			if(boss.heroicKills !== 0){
+				progress[j].HMprogress++;
+				if(boss.heroicTimestamp > lastResetTime)
+					progress[j].HMweekprogress++;
+			}
+			if(boss.mythicKills !== 0){
+				progress[j].MMprogress++;
+				if(boss.mythicTimestamp > lastResetTime)
+					progress[j].MMweekprogress++;
+			}
+			progress[j].total++;
+		}
+	}
+	return progress;
+
 }
 
 

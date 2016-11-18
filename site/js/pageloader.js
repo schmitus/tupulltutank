@@ -40,13 +40,17 @@ var loadSection = function(id,data){
 		var descriptionElement = document.createElement("p");
 		descriptionElement.innerHTML = char.description + "</br>" + "ILVL : " + char.ilvl;
 
-
+		var progressElement = document.createElement("p");
+		progressElement.innerHTML = char.raidProgress[0].name + "</br> @allTime : NM " + char.raidProgress[0].NMprogress +"/" + char.raidProgress[0].total + "   HM " + char.raidProgress[0].HMprogress +"/" + char.raidProgress[0].total + "   MM " + char.raidProgress[0].MMprogress +"/" + char.raidProgress[0].total;
+		progressElement.innerHTML += "</br> @thisWeek : NM " + char.raidProgress[0].NMweekprogress +"/" + char.raidProgress[0].total + "   HM " + char.raidProgress[0].HMweekprogress +"/" + char.raidProgress[0].total + "   MM " + char.raidProgress[0].MMweekprogress +"/" + char.raidProgress[0].total;
+		
 
 		sectionHolder.appendChild(form);
 		form.appendChild(divhandler);
 		divhandler.appendChild(imgElement);
 		divhandler.appendChild(nameElement);
 		divhandler.appendChild(descriptionElement);
+		divhandler.appendChild(progressElement);
 
 	}
 
