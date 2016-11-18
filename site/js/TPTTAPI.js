@@ -1,35 +1,54 @@
 var TPTTAPI = {};
 var isServerOnline = false;
 var isDebug = true;
-var apikey = "bqerewzpvtvbure8npcx7txu4xc73jkk"
+var apikey = "bqerewzpvtvbure8npcx7txu4xc73jkk";
 
 /**
 * Return all Tanks in an array []
 */
 TPTTAPI.getAllTanks = function(){
-
-	return this.roster.tanks;
+	var tanks = [];
+	for(var i in this.roster){
+		if(this.roster[i].role == "tank")
+			tanks.push(this.roster[i]);
+	}
+	return tanks;
 }
 
 /**
 * Return all Healers in an array []
 */
 TPTTAPI.getAllHeals = function(){
-	return this.roster.heals;
+	var heals = [];
+	for(var i in this.roster){
+		if(this.roster[i].role == "heal")
+			heals.push(this.roster[i]);
+	}
+	return heals;
 }
 
 /**
 * Return all CAC DPS in an array []
 */
 TPTTAPI.getAllDpsCac = function(){
-	return this.roster.dpsCac;
+	var dpsCacs = [];
+	for(var i in this.roster){
+		if(this.roster[i].role == "dpsCac")
+			dpsCacs.push(this.roster[i]);
+	}
+	return dpsCacs;
 }
 
 /**
 * Return all distance DPS in an array []
 */
 TPTTAPI.getAllDpsDist = function(){
-	return this.roster.dpsDist;
+	var dpsDists = [];
+	for(var i in this.roster){
+		if(this.roster[i].role == "dpsDist")
+			dpsDists.push(this.roster[i]);
+	}
+	return dpsDists;
 }
 
 /**
@@ -54,7 +73,55 @@ TPTTAPI.getDescriptionOf = function(name){
 		console.error("TPTTAPI : getDescriptionOf charInfo not found");
 		return null;
 	}
-	return charInfo.spec.description;
+	return charInfo.talents[0].spec.description;
+}
+
+/**
+* Return the pvp section of the character
+*/
+TPTTAPI.getPvpOf = function(name){
+	var charInfo = TPTTAPI.getCharacterInfo(name);
+	if(charInfo === null){
+		console.error("TPTTAPI : getPvpOf charInfo not found");
+		return null;
+	}
+	return charInfo.pvp;
+}
+
+/**
+* Return the stats section of the character
+*/
+TPTTAPI.getStatsOf = function(name){
+	var charInfo = TPTTAPI.getCharacterInfo(name);
+	if(charInfo === null){
+		console.error("TPTTAPI : getStatsOf charInfo not found");
+		return null;
+	}
+	return charInfo.stats;
+}
+
+/**
+* Return the profession section of the character
+*/
+TPTTAPI.getProfessionsOf = function(name){
+	var charInfo = TPTTAPI.getCharacterInfo(name);
+	if(charInfo === null){
+		console.error("TPTTAPI : getProfessionsOf charInfo not found");
+		return null;
+	}
+	return charInfo.professions;
+}
+
+/**
+* Return the items section of the character
+*/
+TPTTAPI.getItemsOf = function(name){
+	var charInfo = TPTTAPI.getCharacterInfo(name);
+	if(charInfo === null){
+		console.error("TPTTAPI : getItemsOf charInfo not found");
+		return null;
+	}
+	return charInfo.items;
 }
 
 /**
@@ -66,29 +133,25 @@ TPTTAPI.setRoster = function(roster){
 		console.log("DEBUG setRoster: Roster defined : ");
 	}
 	this.ilvlList = [];
-	for(var spe in this.roster){
-		for(var i in this.roster[spe]){
-			TPTTAPI.rosterArray.push(name);
+	for(var i in this.roster){
+			
+			var name = this.roster[i].name;
+			var server = this.roster[i].server
+			var infoReq = new XMLHttpRequest();
+			infoReq.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+					var res = JSON.parse(this.responseText);
+					TPTTAPI.ilvlList.push({ "name": res.name,"ilvl":res.items.averageItemLevelEquipped});
+					TPTTAPI.rosterAJAX.push({ "name": res.name,"data":res});
+					TPTTAPI.notify();
+				}
+			};
+			infoReq.open("GET", "https://eu.api.battle.net/wow/character/"+server+"/"+name+"?fields=items&fields=talents&fields=stats&fields=progression&fields=professions&fields=pvp&locale=fr_FR&apikey="+apikey, true);
+			infoReq.send();
+
+
 		}
-	}
-	for(var spe in this.roster){
-			for(var i in this.roster[spe]){
-				var name = this.roster[spe][i].name;
-				var server = this.roster[spe][i].server
-				var ilvlreq = new XMLHttpRequest();
-				ilvlreq.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-						var res = JSON.parse(this.responseText);
-						TPTTAPI.ilvlList.push({ "name": res.name,"ilvl":res.items.averageItemLevelEquipped});
-						TPTTAPI.notify();
-					}
-				};
-				ilvlreq.open("GET", "https://eu.api.battle.net/wow/character/"+server+"/"+name+"?fields=items&locale=fr_FR&apikey="+apikey, true);
-				ilvlreq.send();
-	
-	
-			}
-		}
+		
 }
 
 
@@ -96,9 +159,9 @@ TPTTAPI.setRoster = function(roster){
 * Internal usage only : notify when data arrive
 */
 TPTTAPI.notify = function(){
-	console.log("trynotify " + this.rosterArray.length + " / " + this.ilvlList.length  );
+	console.log("trynotify " + this.roster.length + " / " + this.ilvlList.length  );
 	
-	if(this.rosterArray.length === this.ilvlList.length && this.guildInfo !== null){
+	if(this.roster.length === this.ilvlList.length && this.guildInfo !== null){
 		console.log("TPTTAPI Initialized");
 		this.isInitialised = true;
 		this.completeRosterInfo();
@@ -118,25 +181,22 @@ TPTTAPI.setGuildInfo = function(guildInfo){
 		console.log("DEBUG setGuildInfo: guildInfo defined : ");
 	}
 	TPTTAPI.notify();
-	
 }
 
 /**
 * Intern function, should not be used by users
 */
 TPTTAPI.completeRosterInfo = function(){
-	for(var spe in this.roster){
-		for(var i in this.roster[spe]){
-			var charInfo = TPTTAPI.getCharacterInfo(this.roster[spe][i].name);
-			if(charInfo !== null){
-				this.roster[spe][i].ilvl = this.getCharacterilvl(this.roster[spe][i].name);
-				this.roster[spe][i].description = charInfo.spec.description;
-				this.roster[spe][i].specName = charInfo.spec.name;
-				this.roster[spe][i].avatar = TPTTAPI.getPictureAdressOf(this.roster[spe][i].name);
-			}
-			else{
-				console.error("TPTTAPI No information found for " +this.roster[spe][i].name)
-			}
+	for(var i in this.roster){
+		var charInfo = TPTTAPI.getCharacterInfo(this.roster[i].name);
+		if(charInfo !== null){
+			this.roster[i].ilvl = this.getCharacterilvl(this.roster[i].name);
+			this.roster[i].description = charInfo.talents[0].spec.description;
+			this.roster[i].specName = charInfo.talents[0].spec.name;
+			this.roster[i].avatar = TPTTAPI.getPictureAdressOf(this.roster[i].name);
+		}
+		else{
+			console.error("TPTTAPI No information found for " +this.roster[i].name)
 		}
 	}
 }
@@ -158,9 +218,11 @@ TPTTAPI.getCharacterilvl = function(name){
 * Send back infos of the character
 */
 TPTTAPI.getCharacterInfo = function(name){
-	for(var i in this.guildInfo.members){
-		if(name === this.guildInfo.members[i].character.name){
-			return this.guildInfo.members[i].character;
+	if(this.roster.length !== this.rosterAJAX.length)
+		console.log("TPTTAPI : getCharacterInfo ERROR !this.rosterAJAX.length and this.roster.length not the same ");
+	for(var i in this.rosterAJAX){
+		if(name === this.rosterAJAX[i].name){
+			return this.rosterAJAX[i].data;
 		}
 	}
 	// NOT FOUND IN THE GUILD 
@@ -220,7 +282,7 @@ TPTTAPI.initialisation = function(callback){
 	this.callbackOnInit = callback;
 	this.isInitialised = false;
 	this.roster = null;
-	this.rosterArray = [];
+	this.rosterAJAX = [];
 	this.host = null;
 	this.guildInfo = null;
 	this.othersList = null;

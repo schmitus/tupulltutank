@@ -1,49 +1,61 @@
-var roster = {
-	"tanks":[
-		{
-			"name":"Zararia",
-			"server":"nerzhul"
-		},
-		{
-			"name":"Liëd",
-			"server":"nerzhul"
-		}
-	],
+var roster = 
+	[
+	// TANKS 
 
-	"heals":[		
-		{
-			"name":"Druidodu",
-			"server":"nerzhul"
-		}
+			{
+				"role":"tank",
+				"name":"Zararia",
+				"server":"nerzhul",
+			},
+			{
+				"role":"tank",
+				"name":"Liëd",
+				"server":"nerzhul"
+			},
 
-	],
 
-	"dpsCac":[	
-		{
-			"name":"Soupline",
-			"server":"nerzhul"
-		},	
-		{
-			"name":"Guiz",
-			"server":"nerzhul"
-		}
 
-	],
 
-	"dpsDist":[	
-		{
-			"name":"Capshow",
-			"server":"nerzhul"
-		},	
-		{
-			"name":"Eaax",
-			"server":"nerzhul"
-		},	
-		{
-			"name":"Liloulilol",
-			"server":"nerzhul"
-		}
+	//HEALS 
+			{
+				"role":"heal",
+				"name":"Druidodu",
+				"server":"nerzhul"
+			},
 
-	]
+	//DPS CAC
+			{
+				"role":"dpsCac",
+				"name":"Soupline",
+				"server":"nerzhul"
+			},	
+			{
+				"role":"dpsCac",
+				"name":"Guiz",
+				"server":"nerzhul"
+			},
+			{
+				"role":"dpsCac",
+				"name":"Wørmacine",
+				"server":"nerzhul"
+			},
 
-};
+
+
+	//DPS Dist
+			{
+				"role":"dpsDist",
+				"name":"Capshow",
+				"server":"nerzhul"
+			},	
+			{
+				"role":"dpsDist",
+				"name":"Eaax",
+				"server":"nerzhul"
+			},	
+			{
+				"role":"dpsDist",
+				"name":"Liloulilol",
+				"server":"nerzhul"
+			}
+	];
