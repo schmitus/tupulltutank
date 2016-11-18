@@ -12,6 +12,11 @@ var roster =
 				"name":"Liëd",
 				"server":"nerzhul"
 			},
+			{
+				"role":"tank",
+				"name":"Marïnea",
+				"server":"nerzhul"
+			},
 
 
 
@@ -20,6 +25,11 @@ var roster =
 			{
 				"role":"heal",
 				"name":"Druidodu",
+				"server":"nerzhul"
+			},
+			{
+				"role":"heal",
+				"name":"Yolia",
 				"server":"nerzhul"
 			},
 
@@ -39,6 +49,11 @@ var roster =
 				"name":"Wørmacine",
 				"server":"nerzhul"
 			},
+			{
+				"role":"dpsCac",
+				"name":"Hilegacy",
+				"server":"nerzhul"
+			},
 
 
 
@@ -46,6 +61,11 @@ var roster =
 			{
 				"role":"dpsDist",
 				"name":"Capshow",
+				"server":"nerzhul"
+			},	
+			{
+				"role":"dpsDist",
+				"name":"Handlock",
 				"server":"nerzhul"
 			},	
 			{
